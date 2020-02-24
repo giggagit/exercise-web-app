@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+    <head>
+        <title>Topic Tab Title</title>
+    </head>
+
+    <body>
+        <!-- Navbar -->
+        <header>
+            <p>Topic Tab Navbar</p>
+        </header>
+
+        <!-- Content -->
+        <main>
+                            <div class="card-header" th:fragment="content-topic-tab">
+                                <ul class="nav nav-tabs card-header-tabs">
+                                    <li class="nav-item">
+                                        <a class="nav-link" th:classappend="${topicTab == 'index' ? 'active disabled' : ''}" th:href="@{/admin/topic/{id} (id=${topicId})}">Topic</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" th:classappend="${topicTab == 'exam' ? 'active disabled' : ''}" th:href="@{/admin/topic/{id}/exam (id=${topicId})}">Exercises</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" th:classappend="${topicTab == 'users' ? 'active disabled' : ''}" th:href="@{/admin/topic/{id}/users (id=${topicId})}">Users</a>
+                                    </li>
+                                </ul>
+                            </div>
+		</main>
+
+		<!-- Footer -->
+		<footer>
+            <p>Topic Tab Footer</p>
+		</footer>
+    </body>
+    
+</html>

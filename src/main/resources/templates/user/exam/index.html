@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="layouts/default :: layout(~{::title}, ~{::meta}, ~{::main}, ~{})">	
+	<head>
+        <title>Exam</title>
+        <meta name="description" content="Exam">
+	</head>
+
+	<body>
+		<!-- Navbar -->
+		<header>
+            <div>Exam Navbar</div>
+        </header>
+
+		<!-- Content -->
+		<main role="main">
+			<div class="container mt-3">
+				<div class="row">
+					<div class="col-md-12">
+						<div th:if="${param.error}" class="alert alert-danger" role="alert">
+							Sorry, the exercise has expired or you have done.
+						</div>
+						<h1>Topic List</h1>
+						<p th:if="!${pageModel.hasContent()}">No Content</p>
+						<table class="table" th:if="${pageModel.hasContent()}">
+							<thead>
+								<tr>
+									<th style="width: 10%">No.</th>
+									<th style="width: 65%">Title</th>
+									<th style="width: 15%">Expire</th>
+									<th style="width: 10%">Status</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="topic, topicNo : ${pageModel.content}" th:if="*{topic.status}">
+									<th:block th:with="nowTime = ${T(java.time.LocalDate).now()}, expireTime = ${T(java.time.LocalDate).parse(#strings.toString(topic.expire))}">
+										<td scope="row" th:text="${topicNo.count}"></td>
+										<td>
+											<a th:class="${nowTime.isAfter(expireTime) ? 'btn-link disabled' : ''}" th:href="@{/exam/topic/{id} (id=${topic.id})}" th:unless="*{topic.doneExam}" th:text="*{topic.title}"></a>
+										</td>
+											<td th:class="${nowTime.isAfter(expireTime) ? 'text-danger' : ''}" th:text="*{topic.expire}"></td>
+										<td>
+											<th:block th:text="*{topic.doneExam ?  'Done' : 'Undone'}"></th:block>
+										</td>
+									</th:block>
+								</tr>
+							</tbody>
+						</table>
+						<!-- Page Navigation -->
+						<th:block th:if="${pageModel.hasContent()}">
+							<nav th:replace="fragments/pagination :: content-pagination"></nav>
+						</th:block>
+					</div>
+				</div>
+			</div>
+		</main>
+
+		<!-- Footer -->
+		<footer>            
+            <span>Admin Footer</span>
+        </footer>
+	</body>
+	
+</html>

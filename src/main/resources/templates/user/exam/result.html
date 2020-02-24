@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="layouts/default :: layout(~{::title}, ~{::meta}, ~{::main}, ~{::script})">	
+	<head>
+        <title>Exam Result</title>
+        <meta name="description" content="Exam">
+    </head>
+    
+	<body>
+		<!-- Navbar -->
+		<header>
+            <div>Exam Navbar</div>
+        </header>
+
+		<!-- Content -->
+		<main role="main">
+			<div class="container mt-3">
+				<div class="row">
+                    <!-- Modal -->
+                    <div class="modal fade" id="showScore" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" th:if="${scoreModel.status == false}">You are Fail!</h5>
+                                    <h5 class="modal-title" th:if="${scoreModel.status == true}">You are Pass!</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body text-center">
+                                    <span th:text="${'Your Score: ' + scoreModel.score}"></span>
+                                </div>
+                                <div class="modal-footer">
+                                    <a class="btn btn-primary" th:href="@{/exam}"role="button">Exam</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+				</div>
+			</div>
+		</main>
+
+		<!-- Footer -->
+		<footer>            
+            <span>Exam Footer</span>
+        </footer>
+
+    </body>
+
+    <script>
+        $('#showScore').modal('toggle');
+    </script>
+
+</html>

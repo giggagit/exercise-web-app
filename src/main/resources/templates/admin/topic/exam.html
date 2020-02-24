@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="layouts/default :: layout(~{::title}, ~{::meta}, ~{::main}, ~{})">	
+	<head>
+        <title th:text="${examForm != null ? 'Edit Exam: ' + pageTitle : 'Wrong Topic ID'}"></title>
+        <meta name="description" content="${examForm != null ? 'Edit Exam: ' + pageTitle : 'Wrong Topic ID'}">
+	</head>
+
+	<body>
+		<!-- Navbar -->
+		<header>
+            <div>Admin Navbar</div>
+        </header>
+
+		<!-- Content -->
+        <main role="main">
+			<div class="container mt-3">
+				<div class="row">
+                    <!-- ADmin Menu -->
+					<div th:replace="fragments/admin-menu :: content-admin-menu">
+                    </div>
+                    <div class="col-md-9" th:if="${examForm == null}">
+                        <pre>Wrong Topic ID</pre>
+                    </div>
+                    <div class="col-md-9" th:if="${examForm != null}">
+                        <h1 th:text="${pageTitle}"></h1>
+                        <div th:if="${param.success}" class="alert alert-success" role="alert">
+							Update exam success.
+						</div>
+                        <div class="card">
+                            <div th:replace="fragments/topic-tab :: content-topic-tab">
+                            </div>
+                            <div class="card-body">
+                                <form th:action="@{/admin/topic/{id}/exam (id=${topicId})}" th:object="${examForm}" method="post">
+                                    <th:block th:each="item, iter : ${examForm.examModel}">
+                                        <div class="card mb-2">
+                                            <div class="card-header">
+                                                <h5 class="card-title" th:text="${'Question No.' + iter.count}"></h5>
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="form-row">
+                                                    <div class="form-group col-md-10">
+                                                        <input type="hidden" th:field="*{examModel[__${iter.index}__].id}" />
+                                                        <label for="Exam Topic" class="col-form-label" th:text="Question"></label>
+                                                        <input type="text" th:field="*{examModel[__${iter.index}__].question}" class="form-control" />
+                                                    </div>
+                                                    <div class="form-group col-md-2">
+                                                        <label for="Exam Topic" class="col-form-label">Answer</label>
+                                                        <select class="form-control" th:field="*{examModel[__${iter.index}__].answer}">
+                                                            <option value="0">Select</option>
+                                                            <option value="1">1</option>
+                                                            <option value="2">2</option>
+                                                            <option value="3">3</option>
+                                                            <option value="4">4</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="form-row">
+                                                    <div class="form-group col-md-6">
+                                                        <label for="Exam Topic" class="col-form-label">Choice 1</label>
+                                                        <input type="text" th:field="*{examModel[__${iter.index}__].choice1}" class="form-control" />
+                                                    </div>
+                                                    <div class="form-group col-md-6">
+                                                        <label for="Exam Topic" class="col-form-label">Choice 2</label>
+                                                        <input type="text" th:field="*{examModel[__${iter.index}__].choice2}" class="form-control" />
+                                                    </div>
+                                                </div>
+                                                <div class="form-row">
+                                                    <div class="form-group col-md-6">
+                                                        <label for="Exam Topic" class="col-form-label">Choice 3</label>
+                                                        <input type="text" th:field="*{examModel[__${iter.index}__].choice3}" class="form-control" />
+                                                    </div>
+                                                    <div class="form-group col-md-6">
+                                                        <label for="Exam Topic" class="col-form-label">Choice 4</label>
+                                                        <input type="text" th:field="*{examModel[__${iter.index}__].choice4}" class="form-control" />        
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </th:block>
+                                    <div class="form-row float-right">
+                                        <div class="form-group">
+                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                        <a class="btn btn-danger" th:href="@{/admin}" role="button">Back</a>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+				</div>
+			</div>
+        </main>
+
+		<!-- Footer -->
+		<footer>            
+            <span>Admin Footer</span>
+        </footer>
+    </body>
+    
+</html>

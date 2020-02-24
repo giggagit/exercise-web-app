@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+    <head>
+        <title>Pagination Title</title>
+    </head>
+
+    <body>
+        <!-- Navbar -->
+        <header>
+            <p>Pagination Navbar</p>
+        </header>
+
+        <!-- Content -->
+        <main>
+                        <nav aria-label="Page navigation" th:fragment="content-pagination">
+                            <ul class="pagination justify-content-center">
+                                <!-- Pagination previous button -->
+                                <li class="page-item" th:classappend="${pageModel.hasPrevious() ? '' : 'disabled'}">
+                                  <a class="page-link" th:href="@{/{pageLink} (pageLink = ${pageLink}, page = ${pageModel.number})}" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                    <span class="sr-only">Previous</span>
+                                  </a>
+                                </li>
+                                <!-- Pagination first -->
+                                <li class="page-item" th:classappend="*{pageFirst == pageModel.number + 1} ? 'active'" th:if="*{pageModel.totalPages > 9 and pageModel.number > 4}" th:each="pageFirst : *{#numbers.sequence(1, 1)}">
+                                    <a class="page-link" th:href="@{/{pageLink} (pageLink = ${pageLink}, page = *{pageFirst})}" th:text="*{pageFirst}" th:title="*{'Page '+ pageFirst}" data-toggle="tooltip"></a>
+                                </li>
+                                <!-- Pagination more -->
+                                <li class="page-item disabled" th:if="${pageModel.totalPages > 9 and pageModel.number > 4}">
+                                    <a class="page-link" href="#">
+                                        <span>...</span>
+                                    </a>
+                                </li>
+                                <!-- Pagination rang -->
+                                <li class="page-item" th:classappend="*{pageRank == pageModel.number + 1} ? 'active'" th:each="pageRank : *{#numbers.sequence(pageModel.totalPages > 10 and pageModel.number < 5 or pageModel.totalPages < 10 ? 1 : (pageModel.number +  5 > pageModel.totalPages ? pageModel.totalPages - 6 : pageModel.number - 1), pageModel.totalPages > 10 ? (pageModel.number < 5 ? 7 : (pageModel.number +  5 < pageModel.totalPages ? pageModel.number + 3 : pageModel.totalPages)) : pageModel.totalPages)}">
+                                    <a class="page-link" th:href="@{/{pageLink} (pageLink = ${pageLink}, page = *{pageRank})}" th:text="*{pageRank}" th:title="*{'Page '+ pageRank}" data-toggle="tooltip"></a>
+                                </li>
+                                <!-- Pagination more -->
+                                <li class="page-item disabled" th:if="*{pageModel.totalPages > 9 and pageModel.number +  5 < pageModel.totalPages}">
+                                    <a class="page-link" href="#">
+                                        <span>...</span>
+                                    </a>
+                                </li>
+                                <!-- Pagination last -->
+                                <li class="page-item" th:classappend="*{pageLast == pageModel.number + 1} ? 'active'" th:if="*{pageModel.totalPages > 9 and pageModel.number +  5 < pageModel.totalPages}" th:each="pageLast : *{#numbers.sequence(pageModel.totalPages, pageModel.totalPages)}">
+                                    <a class="page-link" th:href="@{/{pageLink} (pageLink = ${pageLink}, page = *{pageLast})}" th:text="*{pageLast}" th:title="*{'Page '+ pageLast}" data-toggle="tooltip"></a>
+                                </li>
+                                <!-- Pagination next button -->
+                                <li class="page-item" th:classappend="${pageModel.hasNext() ? '' : 'disabled'}">
+                                    <a class="page-link" th:href="@{/{pageLink} (pageLink = ${pageLink}, page = ${pageModel.number + 2})}" aria-label="Next">
+                                      <span aria-hidden="true">&raquo;</span>
+                                      <span class="sr-only">Next</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+        </main>
+
+		<!-- Footer -->
+		<footer>
+            <p>Pagination Footer</p>
+		</footer>
+    </body>
+    
+</html>

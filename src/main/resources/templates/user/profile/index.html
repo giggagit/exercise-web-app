@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="layouts/default :: layout(~{::title}, ~{::meta}, ~{::main}, ~{})">
+	
+	<head>
+        <title>Profile</title>
+        <meta name="description" content="Exam">
+	</head>
+
+	<body>
+		<!-- Navbar -->
+		<header>
+            <div>Profile Navbar</div>
+        </header>
+
+		<!-- Content -->
+		<main role="main">
+			<div class="container mt-3">
+				<div class="row">
+					<!-- User Menu -->
+					<div th:replace="fragments/user-menu :: content-user-menu">
+					</div>
+					<div class="col-md-9" th:object="${userModel}">
+						<h2>Profile</h2>
+						<table class="table table-borderless">
+							<tbody>
+								<tr>
+									<td>Username</td>
+									<td th:text="${userModel.username}"></td>
+								</tr>
+								<tr>
+									<td>Firstname</td>
+									<td th:text="${userModel.firstname}"></td>
+								</tr>
+								<tr>
+									<td>Lastname</td>
+									<td th:text="${userModel.lastname}"></td>
+								</tr>
+								<tr>
+									<td>E-mail</td>
+									<td th:text="${userModel.email}"></td>
+								</tr>
+								<tr>
+									<td>Classroom</td>
+									<td th:text="${userModel.classroom}"></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</main>
+
+		<!-- Footer -->
+		<footer>            
+            <span>Profile Footer</span>
+        </footer>
+	</body>
+
+</html>

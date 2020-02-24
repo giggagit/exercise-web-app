@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="layouts/default :: layout(~{::title}, ~{::meta}, ~{::main}, ~{})">	
+	<head>
+        <title>Announce</title>
+        <meta name="description" content="Announce">
+	</head>
+
+	<body>
+		<!-- Navbar -->
+		<header>
+            <div>Announce Navbar</div>
+        </header>
+
+		<!-- Content -->
+		<main role="main">
+			<div class="container mt-3">
+				<div class="row">
+                    <!-- Admin Menu -->
+					<div th:replace="fragments/admin-menu :: content-admin-menu">
+					</div>
+                    <div class="col-md-9">
+                        <h1>Announce</h1>
+                        <!-- Alert Message -->
+                        <th:block th:if="${param.new}">
+                            <div th:if="${param.new[0] == 'success'}" class="alert alert-success" role="alert">
+                                Add new announce success.
+                            </div>
+                            <div th:if="${param.new[0] == 'error'}" class="alert alert-danger" role="alert">
+                                Something went wrong.
+                            </div>
+                        </th:block>
+                        <th:block th:if="${param.delete}">
+                            <div th:if="${param.delete[0] == 'success'}" class="alert alert-success" role="alert">
+                                Delete announce success.
+                            </div>
+                            <div th:if="${param.delete[0] == 'error'}" class="alert alert-danger" role="alert">
+                                Something went wrong.
+                            </div>
+                        </th:block>
+                        <form th:action="@{/admin/announce}" th:object="${announceModel}" method="post">
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control" placeholder="New announce" th:field="*{message}" />
+                                <div class="input-group-append">
+                                  <button class="btn btn-outline-secondary" type="submit">Submit</button>
+                                </div>
+                            </div>
+                        </form>
+                        <p th:if="!${pageModel.hasContent()}">No Content</p>
+                        <table class="table" th:if="${pageModel.hasContent()}">
+                            <thead>
+                                <tr>
+                                    <th style="width: 10%">No.</th>
+                                    <th style="width: 60%">Announce</th>
+                                    <th style="width: 20%">Date</th>
+                                    <th style="width: 10%">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="msg, msgNo : ${pageModel.content}">
+                                    <td th:text="*{msgNo.count + (pageModel.size * pageModel.number)}"></td>
+                                    <td th:text="*{msg.message}"></td>
+                                    <td th:text="*{msg.date}"></td>
+                                    <td>
+                                        <a th:href="@{/admin/announce/delete/{id} (id=${msg.id})}">Delete</a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <!-- Page Navigation -->
+						<th:block th:if="${pageModel.hasContent()}">
+							<nav th:replace="fragments/pagination :: content-pagination"></nav>
+						</th:block>
+                    </div>
+				</div>
+			</div>
+        </main>
+        
+		<!-- Footer -->
+		<footer>            
+            <span>Announce Footer</span>
+        </footer>
+    </body>
+    
+</html>

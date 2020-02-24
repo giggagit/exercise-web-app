@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:fragment="layout (title, description, content)">
+
+	<head th:replace="fragments/header :: content-header(${title}, ${description})">
+		<title>Anonymous Layout Title</title>
+	</head>
+
+	<body>
+        <!-- Content -->
+        <main th:replace="${content}">
+			<p>Anonymous Content</p>
+		</main>
+
+		<!-- Footer -->
+		<footer th:replace="fragments/footer :: content-footer">
+			<p>Anonymous Footer</p>
+		</footer>
+	</body>
+	
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="layouts/default :: layout(~{::title}, ~{::meta}, ~{::main}, ~{})">	
+	<head>
+        <title>Announce</title>
+        <meta name="description" content="Announce">
+	</head>
+
+	<body>
+		<!-- Navbar -->
+		<header>
+            <div>Announce Navbar</div>
+        </header>
+
+		<!-- Content -->
+		<main role="main">
+			<div class="container mt-3">
+				<div class="row">
+					<div class="col-md-12">
+						<h1>Announce</h1>
+                        <div class="card">
+                            <div class="card-body">
+                                <th:block th:each="announce : ${pageModel}">
+                                    <th:block th:object="${announce}">
+                                        <p th:text="*{date + ' - ' + message}"></p>
+                                    </th:block>
+                                </th:block>
+                            </div>
+                        </div>
+					</div>
+				</div>
+			</div>
+		</main>
+
+		<!-- Footer -->
+		<footer>            
+            <span>Announce Footer</span>
+        </footer>
+	</body>
+	
+</html>

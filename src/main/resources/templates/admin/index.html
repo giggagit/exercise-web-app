@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="layouts/default :: layout(~{::title}, ~{::meta}, ~{::main}, ~{})">	
+	<head>
+        <title>Admin</title>
+        <meta name="description" content="Admin Page">
+	</head>
+	
+	<body>
+		<!-- Navbar -->
+		<header>
+            <div>Admin Navbar</div>
+        </header>
+
+		<!-- Content -->
+		<main role="main">
+			
+			<div class="container mt-3">
+				<div class="row">
+					<!-- Admin Menu -->
+					<div th:replace="fragments/admin-menu :: content-admin-menu">
+					</div>
+					<div class="col-md-9">
+						<!-- Alert Message -->
+						<h1>Manage Exercises</h1>
+						<!-- Alert Message -->
+                        <div th:if="${param.success}" class="alert alert-success" role="alert">
+							Add new exercise success.
+						</div>
+                        <th:block th:if="${param.delete}">
+                            <div th:if="${param.delete[0] == 'success'}" class="alert alert-success" role="alert">
+                                Delete exercise success.
+                            </div>
+                            <div th:if="${param.delete[0] == 'error'}" class="alert alert-danger" role="alert">
+                                Something went wrong.
+                            </div>
+                        </th:block>
+						<!-- Exam Table -->
+						<p th:if="!${pageModel.hasContent()}">No Content</p>
+						<table class="table" th:if="${pageModel.hasContent()}">
+							<thead>
+								<tr>
+									<th style="width: 10%">No.</th>
+									<th style="width: 55%">Title</th>
+									<th style="width: 15%">Expire</th>
+									<th style="width: 10%">Status</th>
+									<th style="width: 10%">Action</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="topic, topicNo : ${pageModel.content}">
+									<td th:text="*{topicNo.count + (pageModel.size * pageModel.number)}"></td>
+									<td><a th:href="@{/admin/topic/{id} (id=${topic.id})}" th:text="${topic.title}"></a></td>
+									<td th:text="*{topic.expire}"></td>
+									<td th:text="*{topic.status ? 'Active' : 'Inactive'}"></td>
+									<td>
+										<a th:href="@{/admin/topic/delete/{id} (id=${topic.id})}">Delete</a>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+						<!-- Page Navigation -->
+						<th:block th:if="${pageModel.hasContent()}">
+							<nav th:replace="fragments/pagination :: content-pagination"></nav>
+						</th:block>
+						<div class="row">
+							<div class="col-md">
+                                <div class="float-right">
+									<a class="btn btn-primary" th:href="@{/admin/topic/new}" role="button">New Topic</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</main>
+
+		<!-- Footer -->
+		<footer>            
+            <span>Admin Footer</span>
+        </footer>
+	</body>
+
+</html>

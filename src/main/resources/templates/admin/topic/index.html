@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="layouts/default :: layout(~{::title}, ~{::meta}, ~{::main}, ~{})">	
+	<head>
+        <title th:text="${topicModel != null ? 'Edit Topic: ' + pageTitle : 'Wrong Topic ID'}"></title>
+        <meta name="description" th:content="${topicModel != null ? 'Edit Topic: ' + pageTitle : 'Wrong Topic ID'}">
+	</head>
+
+	<body>
+		<!-- Navbar -->
+		<header>
+            <div>Admin Navbar</div>
+        </header>
+
+		<!-- Content -->
+		<main role="main">
+			<div class="container mt-3">
+				<div class="row">
+                    <!-- Admin Menu -->
+					<div th:replace="fragments/admin-menu :: content-admin-menu">
+                    </div>
+                    <div class="col-md-9" th:if="${topicModel == null}">
+                        <pre>Wrong Topic ID</pre>
+                    </div>
+                    <div class="col-md-9" th:if="${topicModel != null}">
+                        <h1 th:text="${topicModel.title}"></h1>
+                        <div th:if="${param.success}" class="alert alert-success" role="alert">
+							Update topic success.
+						</div>
+                        <div class="card">
+                            <div th:replace="fragments/topic-tab :: content-topic-tab">
+                            </div>
+                            <div class="card-body">
+                                <form th:action="@{/admin/topic/{id} (id=${topicModel.id})}" th:object="${topicModel}" method="post">
+                                    <div class="form-group">
+                                        <input type="hidden" th:field="*{id}" />
+                                        <label for="Exam Topic" class="col-form-label">Exercise topic</label>
+                                        <input type="text" class="form-control" th:classappend="${#fields.hasErrors('title') ? 'is-invalid' : ''}" th:field="*{title}" required />
+                                        <div class="invalid-feedback" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group col-md-3">
+                                            <label for="Select number of exams" class="col-form-label">Number of exams</label>
+                                            <input type="number" class="form-control" id="disabledNumberInput" th:classappend="${#fields.hasErrors('totalExams') ? 'is-invalid' : ''}" th:field="*{totalExams}" min="1" readonly />
+                                            <div class="invalid-feedback" th:if="${#fields.hasErrors('totalExams')}" th:errors="*{totalExams}"></div>
+                                        </div>
+                                        <div class="form-group col-md-3">
+                                            <label for="Pass Score" class="col-form-label">Pass Score</label>
+                                            <input type="number" class="form-control" th:classappend="${#fields.hasErrors('totalExams') ? 'is-invalid' : ''}" th:field="*{passScore}" min="1" required />
+                                        </div>
+                                        <div class="form-group col-md-3">
+                                            <label for="Select expire date" class="col-form-label">Expire date</label>
+                                            <input type="date" th:field="*{expire}" class="form-control" />
+                                        </div>
+                                        <div class="form-group col-md-3">
+                                            <label for="Select expire date" class="col-form-label">Status</label>
+                                            <select class="form-control" th:field="*{status}">
+                                                <option th:value="false">Inactive</option>
+                                                <option th:value="true">Active</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-row float-right">
+                                        <div class="form-group">
+                                            <button type="submit" class="btn btn-primary">Submit</button>
+                                            <a class="btn btn-danger" th:href="@{/admin}" role="button">Back</a>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+				</div>
+			</div>
+        </main>
+        
+		<!-- Footer -->
+		<footer>            
+            <span>Admin Footer</span>
+        </footer>
+    </body>
+    
+</html>

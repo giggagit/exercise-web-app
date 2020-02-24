@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+    <head>
+        <title>User Menu Title</title>
+    </head>
+
+    <body>
+        <!-- Navbar -->
+        <header>
+            <p>User Menu Navbar</p>
+        </header>
+
+        <!-- Content -->
+        <main>
+                <div class="col-md-3" th:fragment="content-user-menu">
+                    <div class="list-group">
+                        <a class="list-group-item list-group-item-action" th:href="@{/profile}" th:classappend="${userMenu == 'index' ? 'active disabled' : ''}">Profile</a>
+                        <a class="list-group-item list-group-item-action" th:href="@{/profile/update-profile}" th:classappend="${userMenu == 'update' ? 'active disabled' : ''}">Update Profile</a>
+                        <a class="list-group-item list-group-item-action" th:href="@{/profile/change-password}" th:classappend="${userMenu == 'password' ? 'active disabled' : ''}">Change Password</a>
+                    </div>
+                </div>
+		</main>
+
+		<!-- Footer -->
+		<footer>
+            <p>User Menu Footer</p>
+		</footer>
+    </body>
+    
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="layouts/default :: layout(~{::title}, ~{::meta}, ~{::main}, ~{})">
+	
+	<head>
+        <title th:text="${'Do Exam: ' + topicModel.title}"></title>
+        <meta name="description" content="Exam">
+	</head>
+
+	<body>
+		<!-- Navbar -->
+		<header>
+            <div>Exam Navbar</div>
+        </header>
+
+		<!-- Content -->
+		<main role="main">
+			<div class="container mt-3">
+					<div class="row">
+						<div class="col-md-12">
+							<form th:action="@{/exam/topic/{id}/result (id=${topicModel.id})}" method="post">
+							<th:block th:each="exam, iter : ${topicModel.examModel}">
+								<div class="card mb-2">
+									<div class="card-header">
+										<h5 class="card-title" th:text="${'Question No.' + iter.count}"></h5>
+									</div>
+									<div class="card-body">
+										<div class="form-row">
+											<div class="form-group">
+												<label for="Exam Topic" class="col-form-label" th:text="${exam.question}"></label>
+											</div>
+										</div>
+										<div class="form-check">
+											<input class="form-check-input" type="radio" th:name="*{exam.id}" th:id="*{exam.id}" value="1" required />
+											<label for="Choice 1" class="form-check-label" th:text="*{exam.choice1}"></label>
+										</div>
+										<div class="form-check">
+											<input class="form-check-input" type="radio" th:name="*{exam.id}" th:id="*{exam.id}" value="2" required />
+											<label for="Choice 2" class="form-check-label" th:text="*{exam.choice2}"></label>
+											</div>
+										<div class="form-check">
+											<input class="form-check-input" type="radio" th:name="*{exam.id}" th:id="*{exam.id}" value="3" required />
+											<label for="Choice 3" class="form-check-label" th:text="*{exam.choice3}"></label>
+										</div>
+										<div class="form-check">
+											<input class="form-check-input" type="radio" th:name="*{exam.id}" th:id="*{exam.id}" value="4" required />
+											<label for="Choice 4" class="form-check-label" th:text="*{exam.choice4}"></label>
+										</div>
+									</div>
+								</div>
+							</th:block>
+							<div class="form-row float-right">
+								<div class="form-group">
+								<button type="submit" class="btn btn-primary">Submit</button>
+								<a class="btn btn-danger" th:href="@{/dashboard}" role="button">Back</a>
+								</div>
+							</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</main>
+		
+		<!-- Footer -->
+		<footer>            
+            <span>Exam Footer</span>
+        </footer>
+	</body>
+
+</html>

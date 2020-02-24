@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+    <head>
+        <title>Admin Menu Title</title>
+    </head>
+
+    <body>
+        <!-- Navbar -->
+        <header>
+            <p>Admin Menu Navbar</p>
+        </header>
+                <div class="col-md-3" th:fragment="content-admin-menu">
+                    <div class="list-group">
+                        <a class="list-group-item list-group-item-action" th:href="@{/admin}" th:classappend="${adminMenu == 'index' ? 'active' : ''}">Manage Exercises</a>
+                        <a class="list-group-item list-group-item-action" th:href="@{/admin/announce}" th:classappend="${adminMenu == 'announce' ? 'active' : ''}">Announce</a>
+                        <a class="list-group-item list-group-item-action" th:href="@{/admin/user-management}" th:classappend="${adminMenu == 'user' ? 'active' : ''}">User Management</a>
+                    </div>
+                </div>
+        <!-- Content -->
+        <main>
+            <p>User Menu Content</p>
+		</main>
+
+		<!-- Footer -->
+		<footer>
+            <p>User Menu Footer</p>
+		</footer>
+    </body>
+    
+</html>

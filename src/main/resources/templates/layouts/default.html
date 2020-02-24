@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:fragment="layout (title, description, content, script)">
+		
+	<head th:replace="fragments/header :: content-header(${title}, ${description})">
+		<title>Default Layout Title</title>
+	</head>
+
+	<body>
+		<!-- Navbar -->
+		<header th:replace="fragments/navbar :: content-navbar">
+			<p>Default Navbar</p>
+		</header>
+
+        <!-- Content -->
+        <main th:replace="${content}">
+			<p>Default Content</p>
+		</main>
+
+		<!-- Footer -->
+		<footer th:replace="fragments/footer :: content-footer">
+			<p>Default Footer</p>
+		</footer>
+	</body>
+	
+	<script th:replace="${script}">
+        $('#showScore').modal('toggle');
+	</script>
+	
+</html>

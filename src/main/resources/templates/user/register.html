@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="layouts/anonymous :: layout(~{::title}, ~{::meta}, ~{::main})">
+        
+	<head>
+        <title>Registration Page</title>
+        <meta name="description" content="Registration Page">
+    </head>
+
+	<body>
+        <!-- Navbar -->
+        <header>
+            <div>Registration Navbar</div>
+        </header>
+
+		<!-- Content -->
+        <main role="main">
+			<div class="container">
+				<div class="row justify-content-center align-items-center" style="padding-top:20px">
+                    <div class="card w-75">
+                        <div class="card-header">
+                            <h2>Register</h2>
+                        </div>
+                        <div class="card-body">
+                            <div th:if="${param.success}" class="alert alert-success" role="alert">
+                                Registration success.
+                            </div>
+                            <div th:if="${param.error}" class="alert alert-danger" role="alert">
+                                Invalid username or password.
+                            </div>
+                            <div th:if="${#fields.hasErrors('${userModel.*}')}" class="alert alert-danger" role="alert">
+                                Please fill in all required fields.
+                            </div>
+                            <form th:action="@{/register}" th:object="${userModel}" method="post">
+                                <input type="hidden" th:field="*{id}" />
+                                <div class="form-group row">
+                                    <label for="username" class="col-md-3 col-form-label">Username</label>
+                                    <div class="col-md-9">
+                                        <input type="text" th:field="*{username}" th:class="${#fields.hasErrors('username') ? 'form-control is-invalid' : 'form-control'}" placeholder="Username"  />
+                                        <div class="invalid-feedback" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></div>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="firstname" class="col-md-3 col-form-label">First Name</label>
+                                    <div class="col-md-9">
+                                        <input type="text" th:field="*{firstname}" th:class="${#fields.hasErrors('firstname') ? 'form-control is-invalid' : 'form-control'}" placeholder="First Name"  />
+                                        <div class="invalid-feedback" th:if="${#fields.hasErrors('firstname')}" th:errors="*{firstname}"></div>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="lastname" class="col-md-3 col-form-label">Last Name</label>
+                                    <div class="col-md-9">
+                                        <input type="text" th:field="*{lastname}" th:class="${#fields.hasErrors('lastname') ? 'form-control is-invalid' : 'form-control'}" placeholder="Last Name"  />
+                                        <div class="invalid-feedback" th:if="${#fields.hasErrors('lastname')}" th:errors="*{lastname}"></div>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="classroom" class="col-md-3 col-form-label">Classroom</label>
+                                    <div class="col-md-9">
+                                        <input type="text" th:field="*{classroom}" th:class="${#fields.hasErrors('classroom') ? 'form-control is-invalid' : 'form-control'}" placeholder="Classroom"  />
+                                        <div class="invalid-feedback" th:if="${#fields.hasErrors('classroom')}" th:errors="*{classroom}"></div>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="email" class="col-md-3 col-form-label">E-Mail</label>
+                                    <div class="col-md-9">
+                                        <input type="email" th:field="*{email}" th:class="${#fields.hasErrors('email') ? 'form-control is-invalid' : 'form-control'}" placeholder="E-Mail"  />
+                                        <div class="invalid-feedback" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="password" class="col-md-3 col-form-label">Password</label>
+                                    <div class="col-md-9">
+                                        <input type="password" th:field="*{password}" th:class="${#fields.hasErrors('password') ? 'form-control is-invalid' : 'form-control'}" placeholder="Password"  />
+                                        <div class="invalid-feedback" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="password" class="col-md-3 col-form-label">Confirm Password</label>
+                                    <div class="col-md-9">
+                                        <input type="password" th:field="*{passwordConfirm}" th:class="${#fields.hasErrors('passwordConfirm') ? 'form-control is-invalid' : 'form-control'}" placeholder="Confirm Password"  />
+                                        <div class="invalid-feedback" th:if="${#fields.hasErrors('passwordConfirm')}" th:errors="*{passwordConfirm}"></div>
+                                    </div>
+                                </div>
+                                <div class="float-left">
+                                    <a name="login" id="login" class="btn btn-primary" th:href="@{/login}" role="Login">Login</a>
+                                </div>
+                                <div class="float-right">
+                                    <button type="reset" class="btn btn-danger">Reset</button>
+                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+				</div>
+			</div>
+        </main>
+
+		<!-- Footer -->
+		<footer>            
+            <span>Registration Footer</span>
+        </footer>
+    </body>
+    
+</html>

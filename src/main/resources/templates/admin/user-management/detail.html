@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="layouts/default :: layout(~{::title}, ~{::meta}, ~{::main}, ~{})">	
+	<head>
+        <title th:text="${'Update user: ' + userModel.username}"></title>
+        <meta name="description" th:content="${'Update user: ' + userModel.username}">
+	</head>
+
+	<body>
+		<!-- Navbar -->
+		<header>
+            <div>User Detail Navbar</div>
+        </header>
+
+        <!-- Content -->
+		<main role="main">
+            <div class="container mt-3">
+				<div class="row">
+					<!-- User Menu -->
+					<div th:replace="fragments/admin-menu :: content-admin-menu">
+					</div>
+					<div class="col-md-9">
+                        <h1 th:text="${'Update: ' + userModel.username}"></h1>
+						<div th:if="${param.success}" class="alert alert-success" role="alert">
+                            Update profile success.
+						</div>
+						<div th:if="${#fields.hasErrors('${userModel.*}')}" class="alert alert-danger" role="alert">
+							Please fill in all required fields.
+						</div>
+                        <form th:action="@{/admin/user-management/detail/{id} (id=${userModel.id})}" method="post" th:object="${userModel}">
+							<div class="form-group row">
+								<label for="username" class="col-md-3 col-form-label">Username</label>
+								<div class="col-md-9">
+									<input type="text" class="form-control" th:field="*{username}" th:classappend="${#fields.hasErrors('username') ? 'is-invalid' : ''}" placeholder="Username" readonly />
+									<div class="invalid-feedback" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></div>
+								</div>
+							</div>
+							<div class="form-group row">
+								<label for="firstname" class="col-md-3 col-form-label">First Name</label>
+								<div class="col-md-9">
+									<input type="text" class="form-control" th:field="*{firstname}" th:classappend="${#fields.hasErrors('firstname') ? 'is-invalid' : ''}" placeholder="First Name" />
+									<div class="invalid-feedback" th:if="${#fields.hasErrors('firstname')}" th:errors="*{firstname}"></div>
+								</div>
+							</div>
+							<div class="form-group row">
+								<label for="lastname" class="col-md-3 col-form-label">Last Name</label>
+								<div class="col-md-9">
+									<input type="text" class="form-control" th:field="*{lastname}" th:classappend="${#fields.hasErrors('lastname') ? 'is-invalid' : ''}" placeholder="Last Name" />
+									<div class="invalid-feedback" th:if="${#fields.hasErrors('lastname')}" th:errors="*{lastname}"></div>
+								</div>
+							</div>
+							<div class="form-group row">
+								<label for="classroom" class="col-md-3 col-form-label">Classroom</label>
+								<div class="col-md-9">
+									<input type="text" class="form-control" th:field="*{classroom}" th:classappend="${#fields.hasErrors('classroom') ? 'is-invalid' : ''}" placeholder="Classroom" />
+									<div class="invalid-feedback" th:if="${#fields.hasErrors('classroom')}" th:errors="*{classroom}"></div>
+								</div>
+							</div>
+							<div class="form-group row">
+								<label for="email" class="col-md-3 col-form-label">E-Mail</label>
+								<div class="col-md-9">
+									<input type="email" class="form-control" th:field="*{email}" th:classappend="${#fields.hasErrors('email') ? 'is-invalid' : ''}" placeholder="E-Mail" />
+									<div class="invalid-feedback" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+								</div>
+							</div>
+							<div class="float-right">
+								<button type="reset" class="btn btn-danger">Reset</button>
+								<button type="submit" class="btn btn-primary">Submit</button>
+							</div>
+						</form>
+                    </div>
+                </div>
+            </div>
+        </main>
+        
+        <!-- Footer -->
+		<footer>            
+            <span>User Detail</span>
+        </footer>
+    </body>
+    
+</html>

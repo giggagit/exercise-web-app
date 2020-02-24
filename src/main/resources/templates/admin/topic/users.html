@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="layouts/default :: layout(~{::title}, ~{::meta}, ~{::main}, ~{})">	
+	<head>
+        <title th:text="${pageModel.hasContent() ? 'User: ' + pageTitle : 'Wrong Topic ID'}"></title>
+        <meta name="description" content="Score List">
+	</head>
+
+	<body>
+		<!-- Navbar -->
+		<header>
+            <div>Topic Detail Navbar</div>
+        </header>
+
+        <!-- Content -->
+		<main role="main">
+			<div th:if="${pageTitle == null}" class="container mt-3">
+                <pre>Wrong Topic ID</pre>
+            </div>
+			<div th:if="${pageTitle != null}" class="container mt-3">
+				<div class="row">
+					<!-- Admin Menu -->
+					<div th:replace="fragments/admin-menu :: content-admin-menu">
+					</div>
+					<div class="col-md-9">
+                        <h1 th:text="${pageTitle}"></h1>
+                        <div class="card">
+                            <div th:replace="fragments/topic-tab :: content-topic-tab">
+                            </div>
+                            <div class="card-body">
+                                <p th:if="${!pageModel.hasContent()}">No Content</p>
+                                <table class="table" th:if="${pageModel.hasContent()}">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 10%">No.</th>
+                                            <th style="width: 70%">Name</th>
+                                            <th style="width: 10%">Score</th>
+                                            <th style="width: 10%">Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr th:each="user, userNo : ${pageModel.content}">
+                                            <td th:text="*{userNo.count + (pageModel.size * pageModel.number)}"></td>
+                                            <td th:text="*{user.userModel.firstname + ' ' + user.userModel.lastname}"></td>
+                                            <td th:text="*{user.score}"></td>
+                                            <td th:text="*{user.status ? 'Pass!' : 'Fail!'}"></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <!-- Page Navigation -->
+                                <th:block th:if="${pageModel.hasContent()}">
+                                    <nav th:replace="fragments/pagination :: content-pagination"></nav>
+                                </th:block>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+		<!-- Footer -->
+		<footer>            
+            <span>Topic Detail Footer</span>
+        </footer>
+    </body>
+    
+</html>
