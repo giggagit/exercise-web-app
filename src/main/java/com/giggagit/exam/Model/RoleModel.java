@@ -47,5 +47,5 @@ public class RoleModel {
     public void setUsers(Set<UserModel> users) {
         this.users = users;
     }
-    
+
 }

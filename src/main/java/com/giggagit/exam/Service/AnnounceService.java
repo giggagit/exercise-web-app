@@ -13,9 +13,13 @@ import org.springframework.data.domain.Pageable;
 public interface AnnounceService {
 
     public Page<AnnounceModel> findAll(Pageable pageable);
+
     public List<AnnounceModel> findTop10O();
+
     public void save(AnnounceModel announceModel);
+
     public void deleteById(int announceId);
+
     public Boolean exist(int announceId);
 
 }

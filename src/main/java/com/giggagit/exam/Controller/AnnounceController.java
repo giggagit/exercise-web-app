@@ -26,9 +26,9 @@ public class AnnounceController {
     public String pageNav() {
         return "announce";
     }
-    
+
     // Show last 10 announce
-    @RequestMapping({"", "/", "/announce"})
+    @RequestMapping({ "", "/", "/announce" })
     public String announce(Model model) {
         List<AnnounceModel> pageModel = announceService.findTop10O();
         model.addAttribute("pageModel", pageModel);

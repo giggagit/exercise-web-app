@@ -23,7 +23,7 @@ import org.springframework.stereotype.Service;
 public class CustomSuccessHandler implements AuthenticationSuccessHandler {
 
     private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
-    
+
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
             Authentication authentication) throws IOException, ServletException {
@@ -31,8 +31,8 @@ public class CustomSuccessHandler implements AuthenticationSuccessHandler {
         clearAuthenticationAttributes(request);
     }
 
-    protected void handle(HttpServletRequest request,
-            HttpServletResponse response, Authentication authentication) throws IOException {
+    protected void handle(HttpServletRequest request, HttpServletResponse response, Authentication authentication)
+            throws IOException {
         String targetUrl = determineTargetUrl(authentication);
 
         if (response.isCommitted()) {
@@ -44,7 +44,7 @@ public class CustomSuccessHandler implements AuthenticationSuccessHandler {
 
     protected String determineTargetUrl(Authentication authentication) {
         Set<String> roles = AuthorityUtils.authorityListToSet(authentication.getAuthorities());
-        
+
         if (roles.contains("ROLE_ADMIN") || roles.contains("ROLE_EDITOR")) {
             return "/admin";
         } else {
@@ -65,9 +65,9 @@ public class CustomSuccessHandler implements AuthenticationSuccessHandler {
     public void setRedirectStrategy(RedirectStrategy redirectStrategy) {
         this.redirectStrategy = redirectStrategy;
     }
-    
+
     protected RedirectStrategy getRedirectStrategy() {
         return redirectStrategy;
     }
-    
+
 }

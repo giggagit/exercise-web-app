@@ -13,7 +13,9 @@ import org.springframework.data.domain.Pageable;
 public interface ScoreService {
 
     public void save(ScoreModel scoreModel);
-    public Page<ScoreModel> findByTopicId (int topicId, Pageable pageable);
+
+    public Page<ScoreModel> findByTopicId(int topicId, Pageable pageable);
+
     public ScoreModel result(int userScore, int passScore, TopicModel topicModel, UserModel userModel);
-    
+
 }

@@ -21,8 +21,8 @@ public class UserImpl extends User {
     private String email;
     private String classroom;
 
-    public UserImpl(String username, String password, Collection<? extends GrantedAuthority> authorities,
-            Integer id, String firstname, String lastname, String email, String classroom) {
+    public UserImpl(String username, String password, Collection<? extends GrantedAuthority> authorities, Integer id,
+            String firstname, String lastname, String email, String classroom) {
         super(username, password, authorities);
         this.id = id;
         this.firstname = firstname;

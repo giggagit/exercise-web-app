@@ -24,7 +24,7 @@ import org.springframework.format.annotation.DateTimeFormat.ISO;
 @Entity
 @Table(name = "topics")
 public class TopicModel {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -34,7 +34,7 @@ public class TopicModel {
 
     @DateTimeFormat(iso = ISO.DATE)
     private LocalDate expire;
-    
+
     private Boolean status;
 
     @Min(1)
@@ -53,28 +53,28 @@ public class TopicModel {
     private List<ScoreModel> scoreModel = new ArrayList<>();
 
     public void addExam(ExamModel examModel) {
-    	if (this.examModel == null) {
-    		this.examModel = new ArrayList<>();
-		}
-    	
-    	this.examModel.add(examModel);
-    	examModel.setTopicModel(this);
+        if (this.examModel == null) {
+            this.examModel = new ArrayList<>();
+        }
+
+        this.examModel.add(examModel);
+        examModel.setTopicModel(this);
     }
-    
+
     public void removeExam(ExamModel examModel) {
         this.examModel.remove(examModel);
         examModel.setTopicModel(null);
     }
 
     public void addScore(ScoreModel scoreModel) {
-    	if (this.scoreModel == null) {
-    		this.scoreModel = new ArrayList<>();
-		}
-    	
-    	this.scoreModel.add(scoreModel);
-    	scoreModel.setTopicModel(this);
+        if (this.scoreModel == null) {
+            this.scoreModel = new ArrayList<>();
+        }
+
+        this.scoreModel.add(scoreModel);
+        scoreModel.setTopicModel(this);
     }
-    
+
     public void removeScore(ScoreModel scoreModel) {
         this.scoreModel.remove(scoreModel);
         scoreModel.setTopicModel(null);

@@ -41,9 +41,8 @@ public class UserServiceImpl implements UserService {
     private final RoleRepository roleRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    public UserServiceImpl(ScoreService scoreService, TopicService topicService,
-            UserRepository userRepository, RoleRepository roleRepository,
-            BCryptPasswordEncoder bCryptPasswordEncoder) {
+    public UserServiceImpl(ScoreService scoreService, TopicService topicService, UserRepository userRepository,
+            RoleRepository roleRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.scoreService = scoreService;
         this.topicService = topicService;
         this.userRepository = userRepository;
@@ -128,24 +127,21 @@ public class UserServiceImpl implements UserService {
 
         // Update user's SecurityContextHolder.Details
         UserDetails userDetails = new CustomUserDetails(updateUser);
-        UsernamePasswordAuthenticationToken contextDetails = new UsernamePasswordAuthenticationToken(
-                userDetails, userDetails.getPassword(), userDetails.getAuthorities());
+        UsernamePasswordAuthenticationToken contextDetails = new UsernamePasswordAuthenticationToken(userDetails,
+                userDetails.getPassword(), userDetails.getAuthorities());
         SecurityContextHolder.getContext().setAuthentication(contextDetails);
 
         save(updateUser);
     }
 
     @Override
-    public ScoreModel submitExam(int topicId, String username, Map<String, String> userAnswer,
-            TopicModel topicModel) {
+    public ScoreModel submitExam(int topicId, String username, Map<String, String> userAnswer, TopicModel topicModel) {
         int userScore = 0;
         ScoreModel scoreModel = new ScoreModel();
 
         // Convert Map<String,String> to Map<Integer,Integer>
-        Map<Integer, Integer> userAnswers = userAnswer.entrySet().stream().collect(
-                Collectors.toMap(
-                    entry -> Integer.parseInt(entry.getKey()),
-                    entry -> Integer.parseInt(entry.getValue())));
+        Map<Integer, Integer> userAnswers = userAnswer.entrySet().stream().collect(Collectors
+                .toMap(entry -> Integer.parseInt(entry.getKey()), entry -> Integer.parseInt(entry.getValue())));
         TopicModel getTopic = topicService.findById(topicId);
         UserModel userModel = findByUsername(username);
 
@@ -198,7 +194,7 @@ public class UserServiceImpl implements UserService {
                 changeStatus = true;
             }
         }
-        
+
         return changeStatus;
     }
 

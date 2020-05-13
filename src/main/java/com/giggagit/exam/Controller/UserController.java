@@ -43,7 +43,7 @@ public class UserController {
 
     // Create new user
     @PostMapping("/register")
-    public String registerProcess(@Validated({Profile.class}) UserModel userModel, BindingResult bindingResult) {
+    public String registerProcess(@Validated(Profile.class) UserModel userModel, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "register";
         }

@@ -37,8 +37,8 @@ public class AdminController {
     private final AnnounceService announceService;
     private final ScoreService scoreService;
 
-    public AdminController(TopicService topicService, UserService userService,
-            AnnounceService announceService, ScoreService scoreService) {
+    public AdminController(TopicService topicService, UserService userService, AnnounceService announceService,
+            ScoreService scoreService) {
         this.topicService = topicService;
         this.userService = userService;
         this.announceService = announceService;
@@ -52,15 +52,14 @@ public class AdminController {
 
     // Admin Page
     @RequestMapping({ "", "/" })
-    public String adminPage(@RequestParam(name = "page", defaultValue = "1", required = false) int page,
-            Model model) {
-        Pageable pageable = PageRequest.of(page-1, 10);
+    public String adminPage(@RequestParam(name = "page", defaultValue = "1", required = false) int page, Model model) {
+        Pageable pageable = PageRequest.of(page - 1, 10);
         Page<TopicModel> pageModel = topicService.findAll(pageable);
 
         model.addAttribute("pageModel", pageModel);
         model.addAttribute("pageLink", "admin");
         model.addAttribute("adminMenu", "index");
-        
+
         return "admin/index";
     }
 
@@ -109,12 +108,11 @@ public class AdminController {
 
     // Perform edit topic
     @PostMapping("/topic/{topicId}")
-    public String topicEditProcess(@PathVariable("topicId") int topicId, TopicModel topicModel,
-            Model model) {
+    public String topicEditProcess(@PathVariable("topicId") int topicId, TopicModel topicModel, Model model) {
         topicService.save(topicModel);
         return "redirect:/admin/topic/" + topicId + "?success";
     }
-    
+
     // Edit exam
     @GetMapping("/topic/{topicId}/exam")
     public String examEdit(@PathVariable("topicId") int topicId, Model model) {
@@ -149,7 +147,7 @@ public class AdminController {
     public String topicUsers(@RequestParam(name = "page", defaultValue = "1", required = false) int page,
             @PathVariable("topicId") int topicId, Model model) {
         String pageTitle = null;
-        Pageable pageable = PageRequest.of(page-1, 10);        
+        Pageable pageable = PageRequest.of(page - 1, 10);
         Page<ScoreModel> pageModel = scoreService.findByTopicId(topicId, pageable);
         TopicModel topicModel = topicService.findById(topicId);
 
@@ -171,7 +169,7 @@ public class AdminController {
     @GetMapping("/user-management")
     public String userManagement(@RequestParam(name = "page", defaultValue = "1", required = false) int page,
             Model model) {
-        Pageable pageable = PageRequest.of(page-1, 10);
+        Pageable pageable = PageRequest.of(page - 1, 10);
         Page<UserModel> pageModel = userService.findAll(pageable);
 
         model.addAttribute("pageModel", pageModel);
@@ -189,7 +187,7 @@ public class AdminController {
 
     // Perform new user
     @PostMapping("/user-management/new")
-    public String userNewPerform(@Validated({Profile.class}) UserModel userModel, BindingResult bindingResult,
+    public String userNewPerform(@Validated(Profile.class) UserModel userModel, BindingResult bindingResult,
             Model model) {
         if (bindingResult.hasErrors()) {
             return "admin/user-management/new";
@@ -223,8 +221,8 @@ public class AdminController {
 
     // Update user detail
     @PostMapping("/user-management/detail/{userId}")
-    public String userDetailProcess(@Validated(Profile.class) UserModel userModel, 
-            BindingResult bindingResult, @PathVariable("userId") int userId, Model model) {
+    public String userDetailProcess(@Validated(Profile.class) UserModel userModel, BindingResult bindingResult,
+            @PathVariable("userId") int userId, Model model) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("adminMenu", "user");
             return "admin/user-management/detail";
@@ -238,7 +236,7 @@ public class AdminController {
     @GetMapping("/announce")
     public String announce(@RequestParam(name = "page", defaultValue = "1", required = false) int page,
             AnnounceModel announceModel, Model model) {
-        Pageable pageable = PageRequest.of(page-1, 10);
+        Pageable pageable = PageRequest.of(page - 1, 10);
         Page<AnnounceModel> pageModel = announceService.findAll(pageable);
 
         model.addAttribute("pageLink", "admin/announce");
@@ -250,8 +248,8 @@ public class AdminController {
 
     // New announce
     @PostMapping("/announce")
-    public String announceCreateProcess(@Validated AnnounceModel announceModel,
-            BindingResult bindingResult, Model model) {
+    public String announceCreateProcess(@Validated AnnounceModel announceModel, BindingResult bindingResult,
+            Model model) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("adminMenu", "announce");
             return "admin/announce";

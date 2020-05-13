@@ -13,6 +13,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ScoreRepository extends JpaRepository<ScoreModel, Integer> {
 
-    public Page<ScoreModel> findByTopicModelId (Integer topicId, Pageable pageable);
+    public Page<ScoreModel> findByTopicModelId(Integer topicId, Pageable pageable);
 
 }

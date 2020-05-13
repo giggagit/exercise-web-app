@@ -31,6 +31,7 @@ public class AnnounceServiceImpl implements AnnounceService {
     public List<AnnounceModel> findTop10O() {
         return announceRepository.findTop10ByOrderByIdDesc();
     }
+
     @Override
     public void save(AnnounceModel announceModel) {
         LocalDate localDate = LocalDate.now();

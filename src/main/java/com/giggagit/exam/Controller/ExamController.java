@@ -44,11 +44,11 @@ public class ExamController {
     }
 
     // Exam page
-    @GetMapping({"", "/"})
+    @GetMapping({ "", "/" })
     public String examList(@RequestParam(name = "page", defaultValue = "1", required = false) int page,
             Authentication authentication, Model model) {
         List<TopicModel> topicModels = new ArrayList<>();
-        Pageable pageable = PageRequest.of(page-1, 10);
+        Pageable pageable = PageRequest.of(page - 1, 10);
         Page<TopicModel> topicPage = topicService.findAllByStatus(true, pageable);
 
         for (TopicModel topicModel : topicPage.getContent()) {
@@ -87,8 +87,8 @@ public class ExamController {
             return "redirect:/exam?error";
         }
 
-        ScoreModel scoreModel = userService.submitExam(topicId, authentication.getName(),
-                userAnswer, topicService.findById(topicId));
+        ScoreModel scoreModel = userService.submitExam(topicId, authentication.getName(), userAnswer,
+                topicService.findById(topicId));
         model.addAttribute("scoreModel", scoreModel);
         return "user/exam/result";
     }

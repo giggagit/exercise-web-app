@@ -14,7 +14,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "exams")
 public class ExamModel {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;

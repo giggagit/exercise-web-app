@@ -34,7 +34,7 @@ public class ProfileController {
     }
 
     // Profile page
-    @GetMapping({"", "/"})
+    @GetMapping({ "", "/" })
     public String profile(Authentication authentication, Model model) {
 
         model.addAttribute("userModel", userService.findByUsername(authentication.getName()));

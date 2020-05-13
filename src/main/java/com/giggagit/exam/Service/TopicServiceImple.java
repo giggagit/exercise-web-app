@@ -83,7 +83,7 @@ public class TopicServiceImple implements TopicService {
         if (topicModel.isDoneExam() || localDate.isAfter(topicModel.getExpire()) || !topicModel.isStatus()) {
             status = true;
         }
-        
+
         return status;
     }
 

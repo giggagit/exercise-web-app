@@ -27,7 +27,7 @@ public class ScoreServiceImpl implements ScoreService {
     }
 
     @Override
-    public Page<ScoreModel> findByTopicId (int topicId, Pageable pageable) {
+    public Page<ScoreModel> findByTopicId(int topicId, Pageable pageable) {
         return scoreRepository.findByTopicModelId(topicId, pageable);
     }
 

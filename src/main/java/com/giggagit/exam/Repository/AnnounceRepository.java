@@ -11,9 +11,9 @@ import org.springframework.stereotype.Repository;
  * AnnounceRepository
  */
 @Repository
-public interface AnnounceRepository extends JpaRepository<AnnounceModel, Integer>  {
+public interface AnnounceRepository extends JpaRepository<AnnounceModel, Integer> {
 
     // find top 10 order by Id desc
     public List<AnnounceModel> findTop10ByOrderByIdDesc();
-    
+
 }

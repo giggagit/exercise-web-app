@@ -5,5 +5,4 @@ package com.giggagit.exam.GroupValidation;
  */
 public interface Password {
 
-
 }

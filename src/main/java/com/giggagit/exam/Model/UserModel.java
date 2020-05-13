@@ -43,35 +43,35 @@ public class UserModel {
     @NotBlank(groups = Profile.class)
     private String email;
 
-    @NotBlank(groups = {Password.class})
+    @NotBlank(groups = Password.class)
     private String password;
 
     @Transient
-    @NotBlank(groups = {Password.class})
+    @NotBlank(groups = Password.class)
     private String passwordNew;
 
     @Transient
-    @NotBlank(groups = {Password.class})
+    @NotBlank(groups = Password.class )
     private String passwordConfirm;
 
     @NotBlank(groups = Profile.class)
     private String classroom;
 
     @ManyToMany
-	private Set<RoleModel> roles;
+    private Set<RoleModel> roles;
 
     @OneToMany(mappedBy = "userModel", cascade = CascadeType.ALL)
     private List<ScoreModel> scoreModel = new ArrayList<>();
 
     public void addScore(ScoreModel scoreModel) {
-    	if (this.scoreModel == null) {
-    		this.scoreModel = new ArrayList<>();
-		}
-    	
-    	this.scoreModel.add(scoreModel);
-    	scoreModel.setUserModel(this);
+        if (this.scoreModel == null) {
+            this.scoreModel = new ArrayList<>();
+        }
+
+        this.scoreModel.add(scoreModel);
+        scoreModel.setUserModel(this);
     }
-    
+
     public void removeExam(ScoreModel scoreModel) {
         this.scoreModel.remove(scoreModel);
         scoreModel.setUserModel(null);
