@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" th:replace="layouts/default :: layout(~{::title}, ~{::meta}, ~{::main}, ~{})">	
 	<head>
-        <title th:text="${topicModel != null ? 'Edit Topic: ' + pageTitle : 'Wrong Topic ID'}"></title>
+        <title th:text="${topicModel != null ? 'Edit Topic: ' + topicModel.title : 'Wrong Topic ID'}"></title>
         <meta name="description" th:content="${topicModel != null ? 'Edit Topic: ' + pageTitle : 'Wrong Topic ID'}">
 	</head>
 
